@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteBoard } from "@/actions/update-board";
+import { deleteBoard } from "@/actions/delete-board";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
