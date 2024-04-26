@@ -6,13 +6,13 @@ export async function GET(
   req: Request,
   { params }: { params: { cardId: string } }
 ) {
+  const { userId, orgId } = auth();
+
+  if (!userId || !orgId) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
   try {
-    const { userId, orgId } = auth();
-
-    if (!userId || !orgId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
     const card = await db.card.findUnique({
       where: {
         id: params.cardId,
@@ -35,5 +35,4 @@ export async function GET(
   } catch (error) {
     return new NextResponse("Internal Error", { status: 500 });
   }
-  return null;
 }

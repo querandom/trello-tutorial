@@ -6,6 +6,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useCardModal } from "@/hooks/use-card-modal";
 import type { CardWithList } from "@/types";
 import { fetcher } from "@/lib/fetcher";
+
 import { Header } from "./header";
 
 export const CardModal = () => {
@@ -21,7 +22,7 @@ export const CardModal = () => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-        {!cardData ? <Header.Skeleton /> : <Header.Skeleton />}
+        {cardData ? <Header data={cardData} /> : <Header.Skeleton />}
       </DialogContent>
     </Dialog>
   );
