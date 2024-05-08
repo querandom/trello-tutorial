@@ -2,21 +2,57 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+### Environment setup
+
+```bash
+npm install
+cp .env.example .env.local
+```
+
+### Env vars
+
+[Set Clerk environment keys](https://clerk.com/docs/quickstarts/nextjs#set-your-environment-variables):
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY`
+
+[unsplash-js key](https://www.npmjs.com/package/unsplash-js#unsplash):
+`NEXT_PUBLIC_UNSPLASH_ACCESS_KEY`
+
+[stripe keys](https://www.npmjs.com/package/stripe):
+`STRIPE_API_KEY`
+[`STRIPE_WEBHOOK_SECRET`](#running-stripe-locally)
+
+[prisma database url](https://www.npmjs.com/package/prisma):
+`DATABASE_URL`
+
+### Running Stripe locally
+
+For testing the webhook locally with the Stripe CLI you can find the endpoint's secret by running `stripe listen`. Otherwise, find your endpoint's secret in your webhook settings in the Developer Dashboard
+
+```bash
+brew install stripe/stripe-cli/stripe
+stripe listen --forward-to localhost:3000/api/webhook
+```
+
+### Init database
+
+```bash
+npx prisma generate
+```
+
+If you are need to sync the local schemas with the server you can run `npx prisma db push`.
+Use `npx prisma migrate reset` to start over.
+
+### Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Prisma
+
+Prisma provides a local view of the data, by running `npx prisma studio` you can see how the data is allocated in the database.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
